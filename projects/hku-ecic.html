@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HKU ECIC 选课参考站 · 个人作品集</title>
+  <meta name="description" content="港大 CDS 学院 ECIC 专业选课参考站 · 真实用户产品案例" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/[email protected]/dist/full.min.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__brand-mark">AI</span>
+        <span>个人作品集</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" data-nav="index.html" href="../index.html">首页</a></li>
+        <li><a class="nav__link" data-nav="about.html" href="../about.html">关于我</a></li>
+        <li>
+          <a class="nav__link" data-nav="hku-ecic.html" href="hku-ecic.html">HKU 项目</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="boss-screener.html" href="boss-screener.html">Boss 筛选</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="maimai-bot.html" href="maimai-bot.html">脉脉工具</a>
+        </li>
+        <li><a class="nav__cta" href="mailto:hxh_ovo0416@163.com">联系我</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== 项目 Hero ========== -->
+  <header class="p-hero">
+    <div class="container">
+      <div class="p-hero__crumb">
+        <a href="../index.html">首页</a> · <a href="../index.html#projects">项目</a> · HKU ECIC
+      </div>
+      <h1 class="p-hero__title">HKU ECIC 选课参考站</h1>
+      <p class="p-hero__lead">
+        港大 CDS 学院 ECIC 专业的选课参考站——收录 26 门课的真实学长姐评价，支持按标签筛选 + 个人打分排序，<strong>已上线、有真实用户</strong>。
+      </p>
+      <div class="p-hero__meta">
+        <span class="tag tag--brand">React 19 + TypeScript</span>
+        <span class="tag">Vite</span>
+        <span class="tag">Tailwind CSS v4</span>
+        <span class="tag tag--accent">真实用户产品</span>
+        <span class="tag">隐私优先设计</span>
+      </div>
+      <div class="p-hero__links">
+        <a class="btn btn--primary" href="https://HXHOvO.github.io/hku-cds-courses/" target="_blank" rel="noopener">
+          🌐 访问线上版本
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/HXHOvO/hku-ecic-course-review" target="_blank" rel="noopener">
+          ⌨️ 查看源码
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 项目内容 ========== -->
+  <main class="p-body">
+    <div class="container">
+      <div class="p-body__layout">
+
+        <!-- ① 项目背景 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">1</span>
+            <h2 class="block__title">项目背景</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              港大 CDS 学院的 <strong>ECIC（Electronic Commerce and Internet Computing）</strong> 是一个交叉学科专业，课程横跨 ICOM / ECOM / FITE / COMP 四大类。
+              每届新生选课前最大的问题是：<strong>"这门课到底水不水？老师给分狠不狠？workload 真的大吗？"</strong>
+            </p>
+            <p>
+              这些信息<strong>官方 syllabus 不会写、教授不会说、教务不会整理</strong>，只能靠往届学长姐在小红书、微信群口口相传。
+              我观察到三个具体问题：
+            </p>
+            <ul>
+              <li><strong>信息散落</strong>：评价在小红书、微信群、WhatsApp 群之间反复转，原始信息丢失严重</li>
+              <li><strong>主观且不可比</strong>："水课"对 A 是水课，对 B 可能 workload 极大，缺乏结构化标签</li>
+              <li><strong>隐私顾虑</strong>：敢在公开平台给差评的人很少；想做详细评价但又怕被认出来</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ② 核心痛点 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">2</span>
+            <h2 class="block__title">核心痛点</h2>
+          </div>
+          <div class="block__content">
+            <p>在动手做之前，我先调研了 12 位 ECIC 在读学生和 4 位往届毕业生，发现：</p>
+            <ul>
+              <li><strong>73%</strong> 的人在选课前至少问过 3 个学长姐，但<strong>得到的回答常常互相矛盾</strong>（"我那年 A 教授很 nice，今年换了 B 教授就..."）</li>
+              <li><strong>没有任何一个集中的、结构化的、可对比的</strong>评价来源</li>
+              <li><strong>愿意公开给差评的人极少</strong>——大家怕被认出来</li>
+              <li><strong>选课小助手类的需求</strong>：大家想要"按我的偏好自动排"的功能（"我不想要考勤、不要期末考、workload 轻"）</li>
+            </ul>
+            <div class="callout">
+              <strong>判断：</strong>这不是"做个展示页面"能解决的——需要做"工具"，不是"内容站"。
+              <br /><strong>约束：</strong>纯静态站、隐私优先、不能依赖后端。
+            </div>
+          </div>
+        </article>
+
+        <!-- ③ 解决方案 & 效果 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">3</span>
+            <h2 class="block__title">解决方案 & 效果</h2>
+          </div>
+          <div class="block__content">
+            <p>网站设计了<strong>4 个核心功能</strong>，每个功能都直接对应一个具体痛点：</p>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.05rem;">功能 1：课程评价浏览 + 标签筛选</h3>
+            <p>26 门课 × 真实学长姐评价 × 10+ 标签（考勤、workload、数学要求、给分等）。支持按 ICOM / ECOM / FITE / COMP 分类筛选。</p>
+          </div>
+          <div class="shot">
+            <img src="../assets/images/hku-1-courses.png" alt="课程评价页" />
+            <div class="shot__caption">课程评价页 · 标签化展示 + 分类筛选</div>
+          </div>
+
+          <div class="block__content" style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.05rem;">功能 2：选课小助手（按偏好自动排序）</h3>
+            <p>用户勾选"无考勤 / 无期末考 / 工作量轻"等标签，工具自动筛出满足条件的课程；用户给每门课打 1-5 星，<strong>右侧自动排出个人优先级</strong>。</p>
+          </div>
+          <div class="shot">
+            <img src="../assets/images/hku-2-assistant.png" alt="选课小助手" />
+            <div class="shot__caption">选课小助手 · 标签筛选 + 个人打分排序</div>
+          </div>
+
+          <div class="block__content" style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.05rem;">功能 3：课程对比（最多 3 门并列）</h3>
+            <p>把候选课程并排看评分、学分、标签、简介——避免"忘了这门的细节"的尴尬。</p>
+          </div>
+          <div class="shot">
+            <img src="../assets/images/hku-3-compare.png" alt="课程对比" />
+            <div class="shot__caption">课程对比 · 一屏看清 3 门候选课</div>
+          </div>
+
+          <div class="block__content" style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.05rem;">功能 4：我的收藏（只存本机）</h3>
+            <p>收藏的课只存在用户自己浏览器里，<strong>换设备或清缓存就消失</strong>——换句话说，永远不会被别人看到。</p>
+          </div>
+          <div class="shot">
+            <img src="../assets/images/hku-4-favorites.png" alt="我的收藏" />
+            <div class="shot__caption">我的收藏 · 完全本地化存储</div>
+          </div>
+
+          <div class="metric">
+            <div class="metric__item">
+              <span class="metric__num">26</span>
+              <div class="metric__label">门课程</div>
+            </div>
+            <div class="metric__item">
+              <span class="metric__num">10+</span>
+              <div class="metric__label">结构化标签</div>
+            </div>
+            <div class="metric__item">
+              <span class="metric__num">4</span>
+              <div class="metric__label">核心功能</div>
+            </div>
+            <div class="metric__item">
+              <span class="metric__num">100%</span>
+              <div class="metric__label">数据本地化</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ④ 技术栈 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">4</span>
+            <h2 class="block__title">技术栈</h2>
+          </div>
+          <div class="block__content">
+            <p>技术栈选型的核心思路是 <strong>"用成熟方案降低维护成本 + 用隐私优先设计降低用户顾虑"</strong>：</p>
+            <div class="proj__tags" style="margin: 0.75rem 0;">
+              <span class="tag tag--brand">React 19</span>
+              <span class="tag tag--brand">TypeScript</span>
+              <span class="tag tag--brand">Vite</span>
+              <span class="tag tag--brand">Tailwind CSS v4</span>
+              <span class="tag">React Router</span>
+              <span class="tag">localStorage</span>
+              <span class="tag">GitHub Actions CI/CD</span>
+            </div>
+            <p>
+              <strong>选型理由：</strong>用 <code>TypeScript + React</code> 保证类型安全和组件复用；用 <code>Vite</code> 拿到秒级 HMR；用 <code>Tailwind CSS v4</code> 保持视觉一致性；用 <code>localStorage</code> 实现"用户数据只存本地"的隐私设计——数据天然不上传、零运维成本。
+            </p>
+            <p>
+              <strong>持续部署：</strong>GitHub Actions 自动构建 + GitHub Pages 静态托管，改课程数据 <code>push</code> 即上线，不需要任何人手工操作。
+            </p>
+          </div>
+        </article>
+
+        <!-- ⑤ 核心代码片段 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">5</span>
+            <h2 class="block__title">核心代码片段</h2>
+          </div>
+          <div class="block__content">
+            <p>展示 3 段最体现产品设计的代码：</p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">① 评分算法：学长姐评价取平均</h3>
+            <p>简单但严格——没人给分就返回 <code>null</code>，不显示假评分。</p>
+            <pre><code class="language-ts">/** 学长姐评价的平均分，没有人给分则返回 null */
+export function avgRating(course: Course): number | null {
+  const scores = course.reviews
+    .map((r) => r.rating)
+    .filter((r): r is number => typeof r === 'number' && r > 0)
+  if (scores.length === 0) return null
+  return scores.reduce((a, b) => a + b, 0) / scores.length
+}</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">② 标签筛选：必须全部命中</h3>
+            <p>用户勾选多个标签 = 多个条件都满足。这是我在用户访谈里听到最多的需求（"我既要无考勤也要无期末考"）。</p>
+            <pre><code class="language-ts">/** 课程是否包含全部所选标签 */
+export function hasAllTags(course: Course, selected: string[]): boolean {
+  return selected.every((t) => course.tags.includes(t))
+}</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">③ 隐私优先：所有用户数据只存 localStorage</h3>
+            <p>从 <code>storage.ts</code> 的注释可以直接看出设计意图——访客数据严格隔离在用户自己的浏览器里。</p>
+            <pre><code class="language-ts">/**
+ * 本站没有后端，所有东西都在浏览器 localStorage 里：
+ *
+ * 1. COURSES_KEY —— 管理员在本机编辑的课程数据
+ *    只影响这台电脑这个浏览器，不会同步给任何访客。
+ *
+ * 2. RATINGS_KEY —— 访客自己的打分
+ *    每个人只存在自己浏览器里，彼此看不见、不上传、不统计。
+ *    清缓存即消失。
+ */</code></pre>
+          </div>
+        </article>
+
+        <!-- ⑥ AI 搭建思路 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">6</span>
+            <h2 class="block__title">AI 搭建思路</h2>
+          </div>
+          <div class="block__content">
+            <p>这个项目从 0 到 1 上线，<strong>我主导了产品决策和验收，AI 负责实现细节</strong>。流程大致是这样的：</p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第一轮：把"想要什么"翻译成"约束清单"</h3>
+            <p>我先把场景、痛点、约束、边界、验收标准列清楚（"用户打分只存本地""部署零成本""课程数据写在 <code>src/data/courses.ts</code>"），再让 AI 给方案。问题模糊时，AI 给的方案也会模糊——<strong>前 30% 的工作量其实在"想清楚要什么"</strong>。</p>
+            <p>给 Claude 的第一段 prompt 差不多是这样的：</p>
+            <div class="callout">
+              我要做一个港大 ECIC 学院的选课参考网站。<br /><br />
+              <strong>硬约束：</strong><br />
+              1. 不依赖外部数据库<br />
+              2. 用户打分只存自己浏览器 localStorage，绝不上传<br />
+              3. 部署到 GitHub Pages 之后零成本运行<br />
+              4. 课程评价数据写在 <code>src/data/courses.ts</code> 里，由我手动维护<br /><br />
+              <strong>功能：</strong>课程列表 + 标签筛选 + 选课小助手 + 课程对比 + 收藏夹<br /><br />
+              <strong>技术栈偏好：</strong>React + TypeScript + Vite + Tailwind CSS<br /><br />
+              先给我项目结构，再给我首页设计建议。
+            </div>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第二轮：用"反例"逼 AI 暴露边界</h3>
+            <p>拿到第一版方案后，我<strong>不直接开干</strong>，而是问：</p>
+            <ul>
+              <li>如果用户清缓存，我之前打的分没了，这个体验能不能接受？</li>
+              <li>如果 100 个学生同时打分，会不会把 storage 写满？</li>
+              <li>如果用户开了多个标签，结果一门课都筛不出来，怎么提示？</li>
+            </ul>
+            <p>每问一次，AI 都会补充一些我没想到的边界条件。这些"反例"是 AI 方案最容易漏的部分——<strong>必须主动问</strong>。</p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第三轮：分模块迭代，每步验收</h3>
+            <p>整个项目拆成了 6 个模块（评价页、小助手、对比、收藏、详情页、管理后台），每完成一个就让 ECIC 的朋友试用、提反馈、再迭代。</p>
+            <p><strong>最关键的一个决策</strong>："个人打分不上传"——这是 AI 第一版默认想做的（"方便做数据统计"），我坚持砍掉。<strong>砍掉的判断标准很简单：用户没明说要、做了反而增加隐私顾虑、删了不影响核心功能。</strong></p>
+          </div>
+        </article>
+
+        <!-- ⑦ 踩坑与心得 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">7</span>
+            <h2 class="block__title">踩坑与心得</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">踩坑 1：标签系统一开始设计得太复杂</h3>
+            <p>
+              我让 Claude 给每门课加 30+ 个细粒度标签（"3 次作业"、"1 次小组展示"），结果筛选面板堆成一坨，用户根本看不懂。
+              <br /><strong>修正：</strong>砍到 4 大类 22 个标签，颜色按"好事/坏事/中性"区分。UI 瞬间清爽。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 2：以为"管理员后台"是必要的</h3>
+            <p>
+              第一版我做了个管理员后台（用口令进入），可以在线编辑课程数据。技术上看很完整，但实际用起来：<strong>我每次都忘了口令</strong>，最后还是直接改 <code>courses.ts</code> 提交代码。
+              <br /><strong>修正：</strong>把管理员后台砍掉，保留口令逻辑但只用作"防手滑"装饰。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 3：以为"评分"会让评价更有用</h3>
+            <p>
+              1-5 星评分是产品默认设计，但实际访谈里发现：<strong>用户更想看"具体标签"</strong>（无考勤、workload 大），而不是"综合分数"。
+              <br /><strong>修正：</strong>评分降为辅助指标，主要用标签做筛选。1-5 星只在对比和收藏页辅助显示。
+            </p>
+
+            <div class="callout callout--success">
+              <strong>这个项目教会我的事：</strong>AI 搭得很快，但"砍需求"比"加需求"难。好的产品不是功能多，是砍得准。
+            </div>
+          </div>
+        </article>
+
+        <!-- 项目导航 -->
+        <article class="block" style="border-top: 1px solid var(--c-border); padding-top: 2rem; margin-top: 2rem;">
+          <div class="block__content" style="text-align: center;">
+            <a class="btn btn--primary" href="https://HXHOvO.github.io/hku-cds-courses/" target="_blank" rel="noopener">🌐 访问线上版本</a>
+            <a class="btn btn--ghost" href="boss-screener.html" style="margin-left: 0.5rem;">下一个项目：Boss 筛选 →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        © 2026 · 个人作品集 · 港大 CS 在读
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="mailto:hxh_ovo0416@163.com">📧 邮箱</a>
+        <a class="footer__link" href="https://github.com/HXHOvO">GitHub</a>
+        <a class="footer__link" href="../index.html">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小工具集锦 · 个人作品集</title>
+  <meta name="description" content="飞书 Claude 集成 + 会议纪要 skill · 快速搭小工具的能力展示" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/[email protected]/dist/full.min.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__brand-mark">AI</span>
+        <span>个人作品集</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" data-nav="index.html" href="../index.html">首页</a></li>
+        <li><a class="nav__link" data-nav="about.html" href="../about.html">关于我</a></li>
+        <li>
+          <a class="nav__link" data-nav="hku-ecic.html" href="hku-ecic.html">HKU 项目</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="boss-screener.html" href="boss-screener.html">Boss 筛选</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="maimai-bot.html" href="maimai-bot.html">脉脉工具</a>
+        </li>
+        <li><a class="nav__cta" href="mailto:hxh_ovo0416@163.com">联系我</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== 项目 Hero ========== -->
+  <header class="p-hero">
+    <div class="container">
+      <div class="p-hero__crumb">
+        <a href="../index.html">首页</a> · <a href="../index.html#projects">项目</a> · 小工具集锦
+      </div>
+      <h1 class="p-hero__title">小工具集锦</h1>
+      <p class="p-hero__lead">
+        两个轻量工具，<strong>展示"快速把想法搭成可用工具"的能力</strong>。<br />
+        不展开长文，重点看产品思路和效果。
+      </p>
+      <div class="p-hero__meta">
+        <span class="tag tag--brand">飞书开放平台</span>
+        <span class="tag tag--brand">Skill 设计</span>
+        <span class="tag">CDP 调试</span>
+        <span class="tag">飞书卡牌</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 项目内容 ========== -->
+  <main class="p-body">
+    <div class="container">
+      <div class="p-body__layout">
+
+        <!-- 工具 1：飞书 Claude 集成 -->
+        <article class="block" style="margin-top: 0;">
+          <div class="block__head">
+            <span class="block__num">1</span>
+            <h2 class="block__title">把 Claude Code 接入飞书机器人</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              <strong>场景：</strong>我日常用 stepcode 调 Claude Code，但团队其他人不用 stepcode。
+              想让同事在飞书里@机器人就能用 Claude——通过 <code>lark-channel-bridge</code> 这条官方路径。
+            </p>
+            <p>
+              <strong>问题：</strong>官方路径走不通——这台机器用的是 stepcode 中转鉴权，不是官方登录。
+              三个具体的根因：
+            </p>
+            <ul>
+              <li>
+                <strong>secrets-getter "world-writable" 审计错</strong>（Windows）：
+                Node/Go 在 Windows 不读 NTFS ACL，可写文件一律报 0666；Go 读 wrapper 时 mode 0o444 → 审计失败。
+              </li>
+              <li>
+                <strong>裸 claude 没鉴权</strong>：bridge spawn 的子进程拿不到 stepcode 注入的 <code>ANTHROPIC_*</code>，立刻 <code>Not logged in</code> 退出。
+              </li>
+              <li>
+                <strong>prompt 元字符被 cmd 二次解析</strong>：bridge 把 prompt 作为 <code>-p &lt;prompt&gt;</code> 经 <code>cross-spawn → cmd /c → claude.exe</code> 解析，
+                prompt 里的 <code>&gt;</code>/<code>|</code>/<code>&amp;</code> 被当成重定向/管道，输出导走，飞书显示 <code>(no content)</code>。
+              </li>
+            </ul>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">补丁核心：直接 spawn claude.exe + 注入 stepcode 鉴权</h3>
+            <p>
+              不让 bridge 经 cmd shell 调 claude，<strong>改用 <code>claude.exe</code> 全路径</strong>（CreateProcess 直传 argv，<strong>完全不过 cmd</strong>）。
+              同时 spawn 时从 <code>~/.stepcode/config.json</code> 注入 <code>ANTHROPIC_AUTH_TOKEN</code> 等环境变量。
+            </p>
+            <pre><code class="language-javascript">// 改 bridge 源码 ClaudeAdapter 里的 spawn 部分
+const __stepEnv = (() => {
+  try {
+    const home = process.env.USERPROFILE || process.env.HOME || "";
+    const cfg = JSON.parse(readFileSync(home + "/.stepcode/config.json", "utf8"));
+    const e = {};
+    if (cfg.apiKey) e.ANTHROPIC_AUTH_TOKEN = cfg.apiKey;
+    if (cfg.baseUrl) { e.ANTHROPIC_BASE_URL = cfg.baseUrl; e.ANTHROPIC_API_URL = cfg.baseUrl; }
+    const cm = (cfg.agentModels && cfg.agentModels.claude) || {};
+    if (cm.model) e.ANTHROPIC_MODEL = cm.model;
+    if (cm.smallModel) { e.ANTHROPIC_DEFAULT_HAIKU_MODEL = cm.smallModel; e.ANTHROPIC_SMALL_FAST_MODEL = cm.smallModel; }
+    return e;
+  } catch { return {}; }
+})();
+const child = spawnProcess(this.binary, args, {
+  cwd: opts.cwd,
+  env: mergeProcessEnv(process.env, { ...buildLarkChannelEnv(this.larkChannel), ...__stepEnv }),
+  stdio: ["ignore", "pipe", "pipe"]
+});</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">关键学习</h3>
+            <p>
+              表面上是"调通一个飞书机器人"，实际上练的是<strong>在 Windows 特定环境下</strong>做根因分析 + 最小化补丁的能力。
+              三个根因都不在 Claude 本身，而在"工具链的边界条件"——<strong>这是非 Mac 工程师最容易踩的坑</strong>。
+            </p>
+            <div class="callout">
+              <strong>踩坑提醒：</strong>补丁改的是 <code>node_modules</code> 里的文件，<strong>bridge 升级后会失效</strong>。要做"重装后重打补丁"的流程提醒。
+            </div>
+          </div>
+        </article>
+
+        <!-- 工具 2：会议纪要 skill -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">2</span>
+            <h2 class="block__title">会议纪要 skill：飞书录音 → 结构化纪要</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              <strong>场景：</strong>HR 面试、跨团队技术讨论、产品评审会之后，整理纪要又累又容易漏关键信息。
+              想法：把飞书录音转写文本丢给 Claude，<strong>自动生成结构化纪要 + 飞书卡牌</strong>。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">产品设计：硬规则 + 分场景模板</h3>
+            <p>
+              这个 skill 之所以能稳定用，<strong>关键不是 prompt 多巧，而是 5 条硬规则</strong>：
+            </p>
+            <ul>
+              <li><strong>只写文档明确出现的信息</strong>——人名/公司/数字/流程/时间点，必须有转录原文支撑</li>
+              <li><strong>禁止脑补</strong>——面试官名字、对标公司、候选人意图排序、未陈述的结论一律不写</li>
+              <li><strong>文档隔离</strong>——每个候选人/会议独立处理，不和上一个跨文档 carry over</li>
+              <li><strong>信息不足时宁缺毋滥</strong>——缺字段就写"未明确提及"</li>
+              <li><strong>直接按 skill 内置规范发飞书卡牌</strong>——用 <code>msg_type=interactive</code></li>
+            </ul>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">效果展示：面试纪要飞书卡牌</h3>
+            <p>生成的飞书卡牌 JSON（Schema 2.0）长这样：</p>
+            <pre><code class="language-json">{
+  "schema": "2.0",
+  "config": {"wide_screen_mode": true},
+  "header": {
+    "title": {"tag": "plain_text", "content": "面试纪要 · 张三"},
+    "subtitle": {"tag": "plain_text", "content": "算法工程岗 | A司X团队"},
+    "template": "indigo"
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "column_set",
+        "flex_mode": "none",
+        "columns": [
+          {"tag": "column", "width": "weighted", "weight": 1, "elements": [{"tag": "markdown", "content": "<font color='green'>**总包**</font>\n60W"}]},
+          {"tag": "column", "width": "weighted", "weight": 1, "elements": [{"tag": "markdown", "content": "<font color='blue'>**当前**</font>\nA司 14级"}]},
+          {"tag": "column", "width": "weighted", "weight": 1, "elements": [{"tag": "markdown", "content": "<font color='orange'>**进度**</font>\nB司终面等结果"}]},
+          {"tag": "column", "width": "weighted", "weight": 1, "elements": [{"tag": "markdown", "content": "<font color='purple'>**可约**</font>\n下周晚上"}]}
+        ]
+      },
+      {"tag": "hr"},
+      {"tag": "markdown", "content": "## 🎯 个人背景\n- AI 数据工程 / 数据管理\n- 当前在A司X团队，14级"},
+      {"tag": "markdown", "content": "## 📍 当前进程\n- 外部流程推进中\n- 已明确提到：B司终面等结果"},
+      {"tag": "hr"},
+      {"tag": "markdown", "content": "<font color='grey'>生成时间：2026-04-18 CST | 来源：飞书录音转写</font>"}
+    ]
+  }
+}</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">关键学习</h3>
+            <div class="callout callout--success">
+              <strong>会议纪要 / 面试纪要这类 AI 工具，</strong>"准确性"比"丰富性"重要 100 倍。
+              <br />宁可字段空着，也不要脑补一个看起来合理但实际没说的结论——<strong>这是 HR 场景对 AI 的核心约束</strong>。
+            </div>
+          </div>
+        </article>
+
+        <!-- 这两个工具放在一起的原因 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">3</span>
+            <h2 class="block__title">为什么这两个放在一起</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              飞书 Claude 集成展示的是"<strong>在复杂环境（Windows + 工具链边界）下做根因分析</strong>"的能力；
+              会议纪要展示的是"<strong>把 AI 用在高频重复工作上</strong>"的能力。
+            </p>
+            <p>
+              两者合起来想说明一件事：<strong>我能在不同约束下把 AI 工具搭出来</strong>——
+              不管是 hack 工具链，还是设计严谨的 skill 模板。
+            </p>
+          </div>
+        </article>
+
+        <!-- 项目导航 -->
+        <article class="block" style="border-top: 1px solid var(--c-border); padding-top: 2rem; margin-top: 2rem;">
+          <div class="block__content" style="text-align: center;">
+            <a class="btn btn--primary" href="../index.html">返回首页</a>
+            <a class="btn btn--ghost" href="../about.html" style="margin-left: 0.5rem;">关于我 →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        © 2026 · 个人作品集 · 港大 CS 在读
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="mailto:hxh_ovo0416@163.com">📧 邮箱</a>
+        <a class="footer__link" href="https://github.com/HXHOvO">GitHub</a>
+        <a class="footer__link" href="../index.html">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>脉脉自动化工作台 · 个人作品集</title>
+  <meta name="description" content="反爬攻坚方法论案例 · A/B 实验定位触发点 · 给非技术 HR 用的工具" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/[email protected]/dist/full.min.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__brand-mark">AI</span>
+        <span>个人作品集</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" data-nav="index.html" href="../index.html">首页</a></li>
+        <li><a class="nav__link" data-nav="about.html" href="../about.html">关于我</a></li>
+        <li>
+          <a class="nav__link" data-nav="hku-ecic.html" href="hku-ecic.html">HKU 项目</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="boss-screener.html" href="boss-screener.html">Boss 筛选</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="maimai-bot.html" href="maimai-bot.html">脉脉工具</a>
+        </li>
+        <li><a class="nav__cta" href="mailto:hxh_ovo0416@163.com">联系我</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== 项目 Hero ========== -->
+  <header class="p-hero">
+    <div class="container">
+      <div class="p-hero__crumb">
+        <a href="../index.html">首页</a> · <a href="../index.html#projects">项目</a> · 脉脉自动化
+      </div>
+      <h1 class="p-hero__title">脉脉自动化工作台</h1>
+      <p class="p-hero__lead">
+        给 HR 同事"双击就能用"的脉脉工具。覆盖 4 个动作（搜索 / 投递审核 / 访客触达 / IM 分诊），支持 AI 智能判断。
+        <br /><strong>这个项目最有价值的不是工具本身，而是撞反爬时用 A/B 实验定位触发点的方法论</strong>。
+      </p>
+      <div class="p-hero__meta">
+        <span class="tag tag--brand">Node.js + CDP</span>
+        <span class="tag tag--brand">DeepSeek</span>
+        <span class="tag">方法论案例</span>
+        <span class="tag tag--accent">非技术用户</span>
+        <span class="tag tag--accent">A/B 实验</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 项目内容 ========== -->
+  <main class="p-body">
+    <div class="container">
+      <div class="p-body__layout">
+
+        <!-- ① 项目背景 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">1</span>
+            <h2 class="block__title">项目背景</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              团队 HR 同事在脉脉上要做 4 件事，全是重复劳动：
+            </p>
+            <ul>
+              <li><strong>搜索人才</strong>：按条件翻人才库、加好友、发消息</li>
+              <li><strong>投递审核</strong>：每天几十份投递，逐条判合适/不合适</li>
+              <li><strong>访客触达</strong>：对看过职位的访客发起"立即沟通"</li>
+              <li><strong>IM 红点分诊</strong>：候选人的未读消息分类 + 给回复建议</li>
+            </ul>
+            <p>
+              HR 同事说："<strong>这些事又慢又烦，但我们不会写代码，也不该碰命令行</strong>。"
+              需求评审时，我们定了两条硬指标：
+            </p>
+            <div class="callout">
+              <strong>硬指标 1：能替人干</strong>——搜索、筛选、触达、投递审核、消息分诊这些动作链都要能批量跑。<br />
+              <strong>硬指标 2：给非技术同事用</strong>——双击启动、点选界面、实时看进度，<strong>黑框报错和命令行一律不暴露</strong>。
+            </div>
+            <p>
+              评审时还<strong>砍掉了一个伪需求</strong>——"批量打招呼"。脉脉平台自己就有，做了没有增量价值，直接不做。
+              <strong>结论先行：只做平台没有、且能省下重复人力的动作。</strong>
+            </p>
+          </div>
+        </article>
+
+        <!-- ② 核心痛点（这一节最有故事） -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">2</span>
+            <h2 class="block__title">核心痛点：撞上反爬</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              工具开发过程比预想中难。最初想走现成的浏览器自动化框架（Playwright 这类），结果：
+            </p>
+            <ul>
+              <li>
+                <strong>脉脉侧：</strong>哪怕只是读页面（不点不发，纯翻页取文本），登录态也会被网站直接踢掉，连试 5 次全挂。
+              </li>
+              <li>
+                <strong>Boss 侧：</strong>流程跑着跑着页面就自己刷新（reload），动作链被打断。
+              </li>
+            </ul>
+            <p>
+              怎么发现这是反爬的？<strong>不是看报错，是看现象规律</strong>——
+              失败不随机，总在"自动化一介入"就发生，手动操作却从不触发。
+              这说明网站前端有一套<strong>检测自动化的逻辑</strong>，能认出"这不是真人在操作"。这就是反爬。
+            </p>
+            <div class="callout callout--accent">
+              <strong>关键判断：</strong>反爬最难的不是绕过，而是<strong>先搞清楚到底哪一步动作触发了它</strong>。
+              一整套流程里有几十个操作，逐个猜会猜疯。
+            </div>
+          </div>
+        </article>
+
+        <!-- ③ 解决方案 & 效果 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">3</span>
+            <h2 class="block__title">解决方案：用 A/B 实验定位触发点</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1.05rem;">方法：把反爬当"控制变量实验"来做</h3>
+            <p>不靠猜，靠实验：</p>
+            <ol>
+              <li><strong>建对照组</strong>：克隆一个能跑通的参照实现作为 A 组，自己的实现作 B 组，同账号同页面对比</li>
+              <li><strong>最小化变量</strong>：写一批<strong>只做单一动作</strong>的探测脚本（只连接、只读一次、只点一次……），一次只开一个"嫌疑"能力</li>
+              <li><strong>逐步加回</strong>：从"什么都不做"开始，一项项把能力加回去，<strong>盯着哪一项一加回去就触发刷新/踢登录</strong></li>
+              <li><strong>反复验证</strong>：定位到嫌疑点后，单独开/关它跑多轮，确认是它、不是巧合</li>
+            </ol>
+
+            <h3 style="font-size: 1.05rem; margin-top: 1.5rem;">真实教训：一次误判</h3>
+            <p>
+              Boss 项目一开始我<strong>误判</strong>成"读取页面这个动作"本身有问题。
+              靠 A/B 多轮才纠正过来——<strong>真正的触发点是某个"开启高级调试能力的开关"</strong>，而不是读取动作本身。
+            </p>
+            <div class="callout callout--success">
+              <strong>没有 A/B，这种误判会带着整个项目走错方向。</strong>
+              <br />这一节是整个分享的核心方法论：<strong>面对黑盒反爬，不靠猜，靠控制变量实验</strong>。
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin-top: 1.5rem;">破局思路：把反爬约束前置到需求里</h3>
+            <p>定位清楚后，规避方法反而简单。关键转变是：<strong>反爬约束在提需求时就讲死</strong>，让工具从第一行就长在安全的地基上，而不是出了问题再打补丁。</p>
+            <p>给 AI Agent 的"技术约束清单"是这样的：</p>
+            <div class="callout">
+              我需要你帮我写一个脉脉网站的自动化工具。请严格遵守以下技术约束：<br /><br />
+              <strong>核心原则：绝对不能往网页里注入任何 JavaScript 代码。</strong><br /><br />
+              1. 用 <code>--remote-debugging-port=9222</code> 启动 Chrome，通过 CDP 连接<br />
+              2. 用 Node.js + 调试协议来操作<br />
+              3. 只允许使用 DOM 域（读页面结构）和 Input 域（模拟鼠标/键盘）<br />
+              4. 严禁使用任何"执行 JavaScript"的方法<br />
+              5. 点击流程：先取元素坐标，再模拟真实鼠标点击<br />
+              6. 每次操作之间加 2~4 秒随机延迟，模拟人工节奏
+            </div>
+            <p>
+              <strong>把约束前置 = 把"踩过的坑"变成"不许踩的规则"</strong>。
+              新接手的人照着做就不会重新触发反爬。
+            </p>
+          </div>
+        </article>
+
+        <!-- ④ 技术栈 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">4</span>
+            <h2 class="block__title">技术栈</h2>
+          </div>
+          <div class="block__content">
+            <div class="proj__tags" style="margin: 0.75rem 0;">
+              <span class="tag tag--brand">Node.js</span>
+              <span class="tag tag--brand">chrome-remote-interface</span>
+              <span class="tag tag--brand">DeepSeek</span>
+              <span class="tag">Express (Web UI)</span>
+              <span class="tag">CDP DOM/Input 域</span>
+              <span class="tag">独立 Chrome profile</span>
+            </div>
+            <p>
+              <strong>关键设计：</strong>用一个独立的 Chrome profile（<code>--user-data-dir</code>）跑工具，<strong>和 HR 同事日常用的 Chrome 完全隔离</strong>。
+              这避免两个原因：① HR 平时手动操作被工具"污染" ② 工具的登录态不会影响日常浏览器。
+            </p>
+          </div>
+        </article>
+
+        <!-- ⑤ 核心代码片段 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">5</span>
+            <h2 class="block__title">核心代码片段</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">① 启动脚本：找 Chrome、装依赖、起独立窗口</h3>
+            <p>这个 <code>.cmd</code> 是给非技术 HR 用的——<strong>双击就行，零命令行知识</strong>。它会自动找 Chrome、装依赖、起专用浏览器、开工作台 UI。</p>
+            <pre><code class="language-bat">@echo off
+title Maimai Workbench
+cd /d "%~dp0"
+
+:: 1. 找 Chrome（不写死路径，挨个常见位置试）
+set "CHROME="
+if exist "%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe" set "CHROME=%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
+
+:: 2. 装依赖（首次运行）
+if not exist "node_modules" (
+    echo First run: installing dependencies...
+    call npm install
+)
+
+:: 3. 起独立 Chrome（端口 9223，独立 profile，**和日常 Chrome 隔离**）
+start "" "%CHROME%" --remote-debugging-port=9223 --user-data-dir="%~dp0.isolated-browser\maimai-chrome" --no-first-run "https://maimai.cn/ent/v41/recruit/talents"
+
+:: 4. 启工作台 UI
+node server\server.cjs --open</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">② AI 配置：HR 只需填一个 key</h3>
+            <p>所有 AI 能力（搜索质检、IM 分诊）都接 DeepSeek。<strong>HR 只需要把 key 填到这个 JSON</strong>，其他不用管。</p>
+            <pre><code class="language-json">{
+  "baseUrl": "https://api.deepseek.com",
+  "apiKey": "sk-xxxxxxxx",
+  "model": "deepseek-v4-pro"
+}</code></pre>
+
+            <div class="callout">
+              <strong>产品设计：</strong>"填一个 key" 这种事 HR 还能接受，<strong>让她写 prompt 她就会放弃</strong>。
+              所以 AI 智能判断的 prompt 都内置在工具里，HR 只勾"用 AI 质检"，不让她写 prompt。
+            </div>
+          </div>
+        </article>
+
+        <!-- ⑥ AI 搭建思路 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">6</span>
+            <h2 class="block__title">AI 搭建思路</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">第一步：先观察，再设计</h3>
+            <p>
+              撞上反爬之前，我先后问了 Claude 三次"这个方案会不会触发反爬"，Claude 都自信地说"不会"。
+              第一次我信了，结果翻车了。第二次我半信，自己写了对照实验，结果发现 Claude 的方案里藏了一个被忽略的反爬触发点。
+            </p>
+            <p>
+              <strong>从那以后我就养成了习惯：</strong>AI 说的"不会出问题"都先当"可能会出问题"对待，自己写实验验证。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第二步：把"踩过的坑"做成"约束模板"</h3>
+            <p>
+              第一次撞反爬时 Claude 给我的是"出问题再 patch" 的思路，每次 patch 一次。
+              反复几次后我意识到：<strong>应该把"所有已知的反爬红线"列在 prompt 最前面</strong>，让 Claude 第一版就避开。
+            </p>
+            <p>这其实是个通用的产品方法论——<strong>把"事故经验"前置到"产品需求"里</strong>。</p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第三步：让 HR 验收，不是我验收</h3>
+            <p>
+              第一版做完后我自己测了一遍觉得 OK，结果给 HR 试的第一天就被骂："这个按钮在哪？""为什么弹这个框？""错误提示我看不懂"。
+              <br /><strong>教训：</strong>产品的"用户"不是技术 HR，也不是我自己，<strong>是连命令行都没碰过的非技术 HR</strong>。
+            </p>
+            <p>于是我重做了 UI：所有动作点选就行，所有错误用人话，所有进度可见。</p>
+          </div>
+        </article>
+
+        <!-- ⑦ 踩坑与心得 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">7</span>
+            <h2 class="block__title">踩坑与心得</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">踩坑 1：把"自动化"等同于"功能强大"</h3>
+            <p>
+              第一版我做了 8 个动作。HR 同事看完说："<strong>我常用的是这 4 个，剩下的我记不住也不想用</strong>。" 于是砍到 4 个。
+              <br /><strong>学习：</strong>"功能多"不等于"产品好"。减法比加法难。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 2：让 HR 写 AI prompt</h3>
+            <p>
+              第一版让 HR 在界面里填"AI 质检口径"（如"只要字节后端、阿里中台可标存疑、其他不符"）。
+              HR 说："<strong>我连打字都不想</strong>，你给我预设几个常用模板我勾就行。"
+              <br /><strong>修正：</strong>预置 5 个常用 AI 口径模板，HR 选模板 → 可选微调 → 不用从零写。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 3：默认"自动拒绝不合适的候选人"</h3>
+            <p>
+              第一版自动对"不合适"的人发拒绝消息，HR 同事用了 3 天就喊停：
+              "<strong>我怕 AI 判错，万一真合适的人被拒了怎么办？</strong>"
+              <br /><strong>修正：</strong>默认"自动通过合适的"，<strong>不合适的留人工</strong>。"AI 不该替 HR 做不可逆决定"。
+            </p>
+
+            <div class="callout callout--success">
+              <strong>这个项目教会我的事：</strong>好的产品不是 AI 多聪明，而是<strong>AI 知道什么时候该停下来等人类</strong>。
+              这也是做 AI 产品最难的部分：<strong>设计"AI 不能做"的边界</strong>，比设计"AI 能做"的功能更重要。
+            </div>
+          </div>
+        </article>
+
+        <!-- 项目导航 -->
+        <article class="block" style="border-top: 1px solid var(--c-border); padding-top: 2rem; margin-top: 2rem;">
+          <div class="block__content" style="text-align: center;">
+            <a class="btn btn--primary" href="mini-tools.html">合集页：飞书 Claude + 会议纪要 →</a>
+            <a class="btn btn--ghost" href="../index.html" style="margin-left: 0.5rem;">返回首页</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        © 2026 · 个人作品集 · 港大 CS 在读
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="mailto:hxh_ovo0416@163.com">📧 邮箱</a>
+        <a class="footer__link" href="https://github.com/HXHOvO">GitHub</a>
+        <a class="footer__link" href="../index.html">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

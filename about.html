@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于我 · 个人作品集</title>
+  <meta name="description" content="人大 HR × 港大 CS · AI 产品经理 / AI-HR 方向求职。" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/[email protected]/dist/full.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-mark">AI</span>
+        <span>个人作品集</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" data-nav="index.html" href="index.html">首页</a></li>
+        <li><a class="nav__link" data-nav="about.html" href="about.html">关于我</a></li>
+        <li>
+          <a class="nav__link" data-nav="hku-ecic.html" href="projects/hku-ecic.html">HKU 项目</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="boss-screener.html" href="projects/boss-screener.html">Boss 筛选</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="maimai-bot.html" href="projects/maimai-bot.html">脉脉工具</a>
+        </li>
+        <li><a class="nav__cta" href="mailto:hxh_ovo0416@163.com">联系我</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== Hero ========== -->
+  <header class="hero">
+    <div class="container hero__inner">
+      <span class="hero__tag">关于我</span>
+      <h1 class="hero__title">
+        <em>扈筱涵</em> · AI 产品 / HR-Tech 方向
+      </h1>
+      <p class="hero__sub">
+        中国人民大学 · 人力资源管理（本科，已毕业）<br />
+        香港大学 · 计算机科学与技术（26fall 入学，28 年 6 月毕业）<br />
+        求职方向：<strong>AI 产品经理 / AI-HR 实习</strong>
+      </p>
+    </div>
+  </header>
+
+  <!-- ========== 我的故事 ========== -->
+  <section class="section">
+    <div class="container" style="max-width: 760px;">
+      <h2 class="section__title">我的故事</h2>
+      <p class="section__lead" style="margin-bottom: 1.5rem;">
+        一个从"管人"到"造工具"的轨迹。
+      </p>
+
+      <div class="block">
+        <div class="block__content">
+          <p>
+            <strong>阶跃星辰实习</strong>让我养成了"先看用户、后看技术"的习惯。
+            在阶跃星辰做 AI 工具与业务结合的工作时，我每天都在和真实场景打交道：候选人筛选、IM 分诊、面试纪要、招聘自动化……
+            我很快发现，<strong>AI 在业务场景最大的机会不是"做新功能"，而是"替代重复劳动"</strong>——很多同事 60% 的时间其实在干机械的事，而不是在做判断。
+          </p>
+          <p>
+            当时没有现成的工具能解决这些具体场景，SaaS 产品要么太贵、要么不对口。
+            我开始想：能不能自己搭点工具？于是我打开了 Claude。
+            <strong>作为港大 CS 准研究生，我能读懂代码、也能借助 AI 工具快速把想法落地</strong>——
+            半年时间，我搭出了 5 个工具，其中 1 个已经在港大 ECIC 学院被学生使用、4 个在阶跃星辰被同事使用。
+          </p>
+          <p>
+            <strong>港大 CS 26fall 入学</strong>是为了系统补齐技术底子——
+            我想从"能用 AI 搭工具"升级到"能和技术团队无障碍对话、能设计出可落地的 AI 产品架构"。
+          </p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>一句话定位：</strong>用 AI 工具提效 60% 的重复劳动，让业务同事只做需要判断的事。
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AI 使用理念 ========== -->
+  <section class="section section--alt">
+    <div class="container" style="max-width: 760px;">
+      <h2 class="section__title">我如何用 AI</h2>
+      <p class="section__lead" style="margin-bottom: 1.5rem;">
+        不会写代码，但能用 AI 交付 5 个能用的工具——背后是这套工作流。
+      </p>
+
+      <div class="block">
+        <div class="block__content">
+          <p><strong>1. 先把问题讲清楚，再让 AI 拆</strong></p>
+          <p>
+            工具好不好用，80% 取决于你提的问题有多具体。
+            我会先把场景、痛点、约束、边界、验收标准列清楚（"HR 不该碰命令行""数据只存本地""启动后 3 秒内出界面"），再让 AI 给方案。
+            问题模糊时，AI 也会模糊。
+          </p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block__content">
+          <p><strong>2. 让 AI 给出"反例"和"边界"</strong></p>
+          <p>
+            拿到方案后我会问："这个方案在 X 场景下会不会挂？Y 用户用了会不会出问题？"
+            AI 给的方案默认是乐观的，需要主动 push 它暴露问题。脉脉项目里我用这个方法撞出了反爬，<strong>不是靠猜，是靠问"会不会挂"</strong>。
+          </p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block__content">
+          <p><strong>3. 用 A/B 实验验证，而不是看 AI 信誓旦旦</strong></p>
+          <p>
+            AI 经常自信地说"这样写就稳了"。我从来不信。我会写 2-3 个最小化的对照实验，一个变量一个变量加回去看哪个动作触发了问题。
+            这套方法在脉脉反爬攻坚里救了我两次（详见<a href="projects/maimai-bot.html">脉脉项目页</a>）。
+          </p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block__content">
+          <p><strong>4. 把"踩过的坑"前置到需求里</strong></p>
+          <p>
+            反爬约束、隐私边界、性能红线——这些"不该踩的坑"我会显式写在给 AI 的 prompt 里。
+            把"踩过的坑"变成"不许踩的规则"，下一个人（或者下一个我）照着做就不会重新走错。
+            这种"把约束当产品文档"的方式是作品集里反复出现的模式。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 技能栈 ========== -->
+  <section class="section">
+    <div class="container" style="max-width: 760px;">
+      <h2 class="section__title">技能栈</h2>
+      <p class="section__lead" style="margin-bottom: 1.5rem;">
+        我把技能分成三块：业务、技术、AI 工具。
+      </p>
+
+      <div class="block">
+        <h3 class="block__title">🏢 业务侧</h3>
+        <div class="proj__tags" style="margin-top: 0.75rem;">
+          <span class="tag">HR 招聘全流程</span>
+          <span class="tag">候选人画像设计</span>
+          <span class="tag">岗位评估</span>
+          <span class="tag">非技术用户培训</span>
+          <span class="tag">需求访谈</span>
+          <span class="tag">需求评审</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="block__title">⚙️ 技术侧（理解级，能和技术团队对话）</h3>
+        <div class="proj__tags" style="margin-top: 0.75rem;">
+          <span class="tag">React / TypeScript</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">localStorage 隐私设计</span>
+          <span class="tag">CDP 浏览器自动化</span>
+          <span class="tag">飞书开放平台</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="block__title">🤖 AI 工具侧（主力）</h3>
+        <div class="proj__tags" style="margin-top: 0.75rem;">
+          <span class="tag tag--brand">Claude Code</span>
+          <span class="tag tag--brand">Prompt Engineering</span>
+          <span class="tag tag--brand">StepFun 视觉模型</span>
+          <span class="tag tag--brand">DeepSeek</span>
+          <span class="tag">飞书 Skill 设计</span>
+          <span class="tag">OCR / 视觉理解</span>
+          <span class="tag">A/B 实验方法论</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联系方式 ========== -->
+  <section class="section section--alt">
+    <div class="container" style="max-width: 760px;">
+      <h2 class="section__title">联系方式</h2>
+      <p class="section__lead" style="margin-bottom: 2rem;">
+        欢迎 HR 和 AI 产品面试官联系，实习机会优先 on-site（深圳/上海/北京/香港）。
+      </p>
+
+      <div class="metric">
+        <div class="metric__item">
+          <span class="metric__num">📧</span>
+          <div class="metric__label">hxh_ovo0416@163.com</div>
+        </div>
+        <div class="metric__item">
+          <span class="metric__num">⌨️</span>
+          <div class="metric__label">github.com/HXHOvO</div>
+        </div>
+        <div class="metric__item">
+          <span class="metric__num">📍</span>
+          <div class="metric__label">港大 26fall 入学</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        © 2026 · 个人作品集 · 港大 CS 在读
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="mailto:hxh_ovo0416@163.com">📧 邮箱</a>
+        <a class="footer__link" href="https://github.com/HXHOvO">GitHub</a>
+        <a class="footer__link" href="index.html">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

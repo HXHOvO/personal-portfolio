@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boss 候选人筛选工具 · 个人作品集</title>
+  <meta name="description" content="HR 场景 AI 工具 · 人才雷达工作台 · 视觉模型 OCR + 评分算法" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/[email protected]/dist/full.min.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__brand-mark">AI</span>
+        <span>个人作品集</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" data-nav="index.html" href="../index.html">首页</a></li>
+        <li><a class="nav__link" data-nav="about.html" href="../about.html">关于我</a></li>
+        <li>
+          <a class="nav__link" data-nav="hku-ecic.html" href="hku-ecic.html">HKU 项目</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="boss-screener.html" href="boss-screener.html">Boss 筛选</a>
+        </li>
+        <li>
+          <a class="nav__link" data-nav="maimai-bot.html" href="maimai-bot.html">脉脉工具</a>
+        </li>
+        <li><a class="nav__cta" href="mailto:hxh_ovo0416@163.com">联系我</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== 项目 Hero ========== -->
+  <header class="p-hero">
+    <div class="container">
+      <div class="p-hero__crumb">
+        <a href="../index.html">首页</a> · <a href="../index.html#projects">项目</a> · Boss 候选人筛选
+      </div>
+      <h1 class="p-hero__title">Boss 候选人筛选工具</h1>
+      <p class="p-hero__lead">
+        给 HR 同事用的人才雷达。配置岗位画像，工具自动按"强对标 / 大厂 / 核心 / 加分"四档评分，<strong>20 人 5 分钟筛完，HR 只需点开"合适"那几个人看</strong>。
+      </p>
+      <div class="p-hero__meta">
+        <span class="tag tag--brand">Node.js</span>
+        <span class="tag tag--brand">视觉模型 OCR</span>
+        <span class="tag">CDP 浏览器自动化</span>
+        <span class="tag">Web 工作台</span>
+        <span class="tag tag--accent">团队已使用</span>
+      </div>
+      <div class="p-hero__links">
+        <a class="btn btn--primary" href="../assets/images/boss-workbench.png" target="_blank" rel="noopener">
+          🖼️ 查看工作台截图
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/HXHOvO/boss-screener" target="_blank" rel="noopener">
+          ⌨️ 查看源码
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 项目内容 ========== -->
+  <main class="p-body">
+    <div class="container">
+      <div class="p-body__layout">
+
+        <!-- ① 项目背景 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">1</span>
+            <h2 class="block__title">项目背景</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              HR 实习时我负责的是<strong>技术岗招聘</strong>。Boss 直聘每天会推送 30-100 个"推荐牛人"，HR 同事要逐个点开、看简历、判断是否合适。
+              我观察到一个具体场景：
+            </p>
+            <p>
+              <strong>一个 HR 一天要看 100+ 个候选人</strong>，平均每个 3-5 分钟。一天下来 6-8 小时就在翻 Boss，眼睛酸、心情也烦。
+              多数情况是<strong>重复劳动</strong>——同一个画像的岗位，昨天筛的和今天筛的标准其实差不多。
+            </p>
+            <p>
+              我问自己：<strong>能不能让工具先按画像初筛一遍，HR 只看"合适"的？</strong>
+            </p>
+          </div>
+        </article>
+
+        <!-- ② 核心痛点 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">2</span>
+            <h2 class="block__title">核心痛点</h2>
+          </div>
+          <div class="block__content">
+            <ul>
+              <li>
+                <strong>画像不稳定</strong>：同一岗位的画像，HR A 写的"必须有 3 年后端经验"、HR B 写的"具备后端基础"。<strong>知识没沉淀在工具里，只在 HR 脑子里</strong>。
+              </li>
+              <li>
+                <strong>重复劳动</strong>：同一岗位每周都要筛 100+ 候选人，标准其实没变，但每次都要重新判断。
+              </li>
+              <li>
+                <strong>看错简历的代价大</strong>：漏掉一个合适的 = 招人慢；错判一个不合适的 = 浪费时间沟通。人工判断容易疲惫、出错。
+              </li>
+              <li>
+                <strong>Boss 把简历详情用 canvas 渲染</strong>，HTML 里没有文字——传统爬虫读不到关键信息。
+              </li>
+            </ul>
+            <div class="callout">
+              <strong>判断：</strong>AI 在 HR 招聘最大的价值不是"取代 HR"，而是<strong>把"按规则初筛"这一步自动化</strong>，让 HR 只做需要判断的事。
+            </div>
+          </div>
+        </article>
+
+        <!-- ③ 解决方案 & 效果 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">3</span>
+            <h2 class="block__title">解决方案 & 效果</h2>
+          </div>
+          <div class="block__content">
+            <p>
+              工具的形态是一个 <strong>"工作台"</strong>：左侧配置岗位画像，右侧实时显示候选人评分。
+              <strong>HR 只需要做两件事</strong>：① 选画像 ② 看"合适"列表。
+            </p>
+          </div>
+          <div class="shot">
+            <img src="../assets/images/boss-workbench.png" alt="Boss 筛选工作台" />
+            <div class="shot__caption">人才雷达 · BOSS 筛选工作台 · 左侧画像配置 + 右侧实时评分</div>
+          </div>
+
+          <div class="block__content" style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.05rem;">核心设计：四档评分规则</h3>
+            <p>把 HR 脑子里的判断逻辑显式写成 4 档规则，每档都有明确分数：</p>
+            <div class="metric">
+              <div class="metric__item">
+                <span class="metric__num">+50</span>
+                <div class="metric__label">⭐ 强对标 AI 公司<br />（月之暗面/智谱/DeepSeek）</div>
+              </div>
+              <div class="metric__item">
+                <span class="metric__num">+10</span>
+                <div class="metric__label">🏢 头部大厂<br />（字节/阿里/腾讯/华为）</div>
+              </div>
+              <div class="metric__item">
+                <span class="metric__num">+5</span>
+                <div class="metric__label">🎯 核心命中<br />（后端/微服务/高并发）</div>
+              </div>
+              <div class="metric__item">
+                <span class="metric__num">+2</span>
+                <div class="metric__label">💡 加分项<br />（Go/Java/K8s）</div>
+              </div>
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin-top: 1.5rem;">关键技术：视觉模型 OCR 读简历</h3>
+            <p>
+              Boss 把简历详情用 <code>canvas</code> 渲染，HTML 里没有文字。
+              <strong>我用视觉模型截图识别</strong>：把简历详情截成图，调 StepFun 的 <code>step-1o-turbo-vision</code> 模型识别成文字，再丢给评分函数。
+            </p>
+            <p>
+              关键约束（也是踩过的坑）：<strong>必须用"视觉模型"，不能用"推理模型"</strong>——
+              推理模型会先思考再输出，简历图越复杂思考越久，无 max_tokens 封顶时极易超时。
+            </p>
+          </div>
+        </article>
+
+        <!-- ④ 技术栈 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">4</span>
+            <h2 class="block__title">技术栈</h2>
+          </div>
+          <div class="block__content">
+            <div class="proj__tags" style="margin: 0.75rem 0;">
+              <span class="tag tag--brand">Node.js</span>
+              <span class="tag tag--brand">chrome-remote-interface (CDP)</span>
+              <span class="tag tag--brand">StepFun 视觉模型</span>
+              <span class="tag">Express (Web 工作台)</span>
+              <span class="tag">JSON 日志</span>
+              <span class="tag">Win .cmd 启动脚本</span>
+            </div>
+            <p>
+              <strong>设计原则：</strong>严格只用 CDP 的 DOM 域（读页面结构）和 Input 域（鼠标/键盘），<strong>绝不执行页面 JS</strong>——这是抗反爬的核心约束。
+            </p>
+          </div>
+        </article>
+
+        <!-- ⑤ 核心代码片段 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">5</span>
+            <h2 class="block__title">核心代码片段</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">① 评分函数：四档评分逻辑（核心）</h3>
+            <p>这是工具的灵魂——把"HR 脑子里的判断逻辑"翻译成可计算的代码。</p>
+            <pre><code class="language-javascript">function scoreCandidate(text) {
+  const hit = (kw) => text.includes(kw);
+
+  // 1) 排除项：命中任何排除词直接判"不合适"
+  const excludedHits = PROFILE.exclude.filter(hit);
+  if (excludedHits.length > 0) {
+    return { category: '不合适', score: 0, reason: `命中排除词：${excludedHits.join('、')}` };
+  }
+
+  // 2) 必备项：缺任何必备项也直接"不合适"
+  const mustMissing = (PROFILE.mustHave || []).filter((kw) => !hit(kw));
+  if (mustMissing.length > 0) {
+    return { category: '不合适', score: 0, reason: `缺少必备项：${mustMissing.join('、')}` };
+  }
+
+  // 3) 四档计分
+  const peercoHits = (PROFILE.peerco || []).filter(hit);  // 强对标 AI 公司
+  const bigcoHits = (PROFILE.bigco || []).filter(hit);    // 头部大厂
+  const coreHits = (PROFILE.core || []).filter(hit);      // 核心本职
+  const bonusHits = (PROFILE.bonus || []).filter(hit);    // 加分项
+
+  const score =
+    PROFILE.baseScore +
+    peercoHits.length * (PROFILE.peercoScore || 0) +
+    bigcoHits.length * (PROFILE.bigcoScore || 0) +
+    coreHits.length * PROFILE.coreScore +
+    bonusHits.length * PROFILE.bonusScore;
+
+  // 4) 分档：强对标直接通过 / 达分过线 / 待定 / 不合适
+  let category;
+  if (peercoHits.length > 0) {
+    category = '合适';
+  } else if (score >= PROFILE.suitableScore) {
+    category = '合适';
+  } else if (score >= PROFILE.pendingScore) {
+    category = '待定';
+  } else {
+    category = '不合适';
+  }
+
+  return { category, score, reason: '...' };
+}</code></pre>
+
+            <h3 style="font-size: 1rem; margin-top: 1.5rem;">② 岗位画像配置：以 Agent 研发岗为例</h3>
+            <p>HR 不该写代码，但 HR 应该<strong>能读懂画像配置</strong>。我把它设计成 JSON，每个字段都有注释说明含义。</p>
+            <pre><code class="language-json">{
+  "id": "agent-backend",
+  "name": "Agent 研发工程师",
+  "strong": ["Agent", "智能体", "大模型", "RAG", "Function Call"],
+  "strongScore": 10,
+  "bigco": ["阿里巴巴", "腾讯", "字节跳动", "微软", "谷歌"],
+  "bigcoScore": 10,
+  "core": ["后端", "服务端", "分布式", "高并发", "微服务"],
+  "coreScore": 5,
+  "bonus": ["Golang", "Java", "Python", "Kubernetes", "Docker"],
+  "bonusScore": 2,
+  "exclude": ["测试工程师", "运维工程师", "前端工程师", "产品经理"]
+}</code></pre>
+
+            <div class="callout">
+              <strong>关键设计：</strong>HR 可以直接编辑这个 JSON 加新岗位、加新关键词、调权重。<strong>画像的修改权完全在 HR 手里</strong>，不需要开发介入。
+            </div>
+          </div>
+        </article>
+
+        <!-- ⑥ AI 搭建思路 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">6</span>
+            <h2 class="block__title">AI 搭建思路</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">第一步：先把"HR 怎么判断"翻译清楚</h3>
+            <p>
+              我和 HR 同事坐了一下午，看她怎么筛简历。她一边点一边说："这人是字节的、看后端、做过 Go、能用……"。
+              我把这些"自言自语"记下来，整理成 4 档规则。<strong>AI 帮不了"业务访谈"</strong>，但能帮我"把访谈结果翻译成代码"。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第二步：先做能跑的最简版</h3>
+            <p>给 Claude 的第一版需求是：</p>
+            <div class="callout">
+              我要做个 Boss 候选人筛选工具。请严格遵守以下技术约束：<br /><br />
+              <strong>核心原则：绝对不能往网页里注入任何 JavaScript 代码。</strong><br /><br />
+              1. 用 <code>--remote-debugging-port=9222</code> 启动 Chrome，通过 CDP 连接<br />
+              2. 只允许使用 DOM 域（读页面结构）和 Input 域（模拟鼠标/键盘）<br />
+              3. 严禁使用任何"执行 JavaScript"的方法<br />
+              4. 点击流程：先取元素坐标，再模拟真实鼠标点击<br />
+              5. 每次操作之间加 2~4 秒随机延迟，模拟人工节奏<br /><br />
+              先给我最简版：能读 5 个候选人、按画像打分、输出 markdown 报告。
+            </div>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">第三步：让 HR 试，反馈驱动迭代</h3>
+            <p>
+              第一版上线后，我让 HR 同事用了 3 天。她提了 3 个关键反馈：
+            </p>
+            <ul>
+              <li>"我想看'为什么这个人是合适'的具体原因"——于是加了详细 reason</li>
+              <li>"我想直接勾'只导合适的'，不想要不合适的人挤列表"——于是加了"按分数排序 + 一键导出合适的"</li>
+              <li>"OCR 太慢了，能不能跳过？"——加了一个开关，HR 选"</li>
+            </ul>
+            <p><strong>关键学习：</strong>AI 搭出来的是"能跑的"，HR 用过之后才知道"好用的"长什么样。<strong>把"能用"变成"好用"的迭代，是产品经理该干的活</strong>。</p>
+          </div>
+        </article>
+
+        <!-- ⑦ 踩坑与心得 -->
+        <article class="block">
+          <div class="block__head">
+            <span class="block__num">7</span>
+            <h2 class="block__title">踩坑与心得</h2>
+          </div>
+          <div class="block__content">
+            <h3 style="font-size: 1rem;">踩坑 1：OCR 用错模型，超时到怀疑人生</h3>
+            <p>
+              第一次 OCR 用的是 <code>step-3.7-flash</code>（推理模型），<strong>每个候选人识别要 30 秒+</strong>，20 个人要 10 分钟。
+              一开始以为是网络问题，反复调超时。后面才意识到：<strong>推理模型会先生成大段思考，简历图越复杂越慢</strong>。
+              <br /><strong>修正：</strong>换成 <code>step-1o-turbo-vision</code>（纯视觉模型）+ 设 <code>max_tokens=1500</code> 封顶输出。亚秒级返回，20 个人 5 分钟搞定。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 2：候选人文本"张冠李戴"</h3>
+            <p>
+              第一版筛选时，发现有些候选人的"加分项"是其他人的——
+              详情面板里有"其他名校毕业 / 推荐相似牛人"模块，列的是别人简历；我的工具把它们当成"本人简历"匹配关键词。
+              <br /><strong>修正：</strong>用"经历概览"作为锚点裁文本，只保留本人简历段。
+            </p>
+
+            <h3 style="font-size: 1rem; margin-top: 1.25rem;">踩坑 3：HR 不肯用"自己看不懂"的工具</h3>
+            <p>
+              第一版我把画像配置藏在 JSON 文件里，HR 要改关键词得找我。
+              <strong>结果她宁愿手筛也不想来问我</strong>。
+              <br /><strong>修正：</strong>做一个 Web 工作台，所有配置可视化（标签云 + 分数滑块），HR 自己就能调。
+            </p>
+
+            <div class="callout callout--success">
+              <strong>这个项目教会我的事：</strong>工具的"用户"是真实的人，不是"会用工具的人"。
+              <strong>HR 不会写代码，但 HR 必须能自己改配置</strong>。把"修改权"留在用户手里，比"功能强大"更重要。
+            </div>
+          </div>
+        </article>
+
+        <!-- 项目导航 -->
+        <article class="block" style="border-top: 1px solid var(--c-border); padding-top: 2rem; margin-top: 2rem;">
+          <div class="block__content" style="text-align: center;">
+            <a class="btn btn--primary" href="../assets/images/boss-workbench.png" target="_blank" rel="noopener">🖼️ 查看工作台截图</a>
+            <a class="btn btn--ghost" href="maimai-bot.html" style="margin-left: 0.5rem;">下一个项目：脉脉工具 →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        © 2026 · 个人作品集 · 港大 CS 在读
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="mailto:hxh_ovo0416@163.com">📧 邮箱</a>
+        <a class="footer__link" href="https://github.com/HXHOvO">GitHub</a>
+        <a class="footer__link" href="../index.html">返回首页</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
