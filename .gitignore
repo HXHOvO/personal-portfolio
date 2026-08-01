@@ -14,3 +14,6 @@ desktop.ini
 
 # Dependencies（虽然本项目没有，但保持习惯）
 node_modules/
+
+# Claude Code 项目笔记（本地用，不入仓）
+CLAUDE.md
